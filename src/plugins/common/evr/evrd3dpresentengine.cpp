@@ -37,9 +37,11 @@
 **
 ****************************************************************************/
 
-#include "evrd3dpresentengine.h"
+#include <initguid.h>
 
 #include "evrhelpers.h"
+
+#include "evrd3dpresentengine.h"
 
 #include <qabstractvideobuffer.h>
 #include <QAbstractVideoSurface>
@@ -243,8 +245,8 @@ public:
             IMFMediaBuffer *buffer;
             if (SUCCEEDED(m_sample->GetBufferByIndex(0, &buffer))) {
                 MFGetService(buffer,
-                             mr_BUFFER_SERVICE,
-                             iid_IDirect3DSurface9,
+                             MR_BUFFER_SERVICE,
+                             IID_IDirect3DSurface9,
                              reinterpret_cast<void **>(&m_surface));
                 buffer->Release();
             }

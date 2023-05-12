@@ -117,6 +117,7 @@ namespace
     };
 
     // Custom interface for handling IMFStreamSink::PlaceMarker calls asynchronously.
+    static const GUID IID_IMarker = {0xa3ff32de, 0x1031, 0x438a, {0x8b, 0x47, 0x82, 0xf8, 0xac, 0xda, 0x59, 0xb7}};
     MIDL_INTERFACE("a3ff32de-1031-438a-8b47-82f8acda59b7")
     IMarker : public IUnknown
     {
@@ -167,7 +168,7 @@ namespace
                 return E_POINTER;
             if (iid == IID_IUnknown) {
                 *ppv = static_cast<IUnknown*>(this);
-            } else if (iid == __uuidof(IMarker)) {
+            } else if (iid == IID_IMarker) {
                 *ppv = static_cast<IMarker*>(this);
             } else {
                 *ppv = NULL;
@@ -1240,7 +1241,7 @@ namespace
                 pUnk = *pos;
                 // Figure out if this is a marker or a sample.
                 if (SUCCEEDED(hr))    {
-                    hr = pUnk->QueryInterface(__uuidof(IMarker), (void**)&pMarker);
+                    hr = pUnk->QueryInterface(IID_IMarker, (void**)&pMarker);
                     if (hr == E_NOINTERFACE)
                         hr = pUnk->QueryInterface(IID_IMFSample, (void**)&pSample);
                 }
@@ -2329,12 +2330,12 @@ void MFVideoRendererControl::customEvent(QEvent *event)
         }
         return;
     }
-    if (event->type() >= MediaStream::StartSurface) {
-        QChildEvent *childEvent = static_cast<QChildEvent*>(event);
-        static_cast<MediaStream*>(childEvent->child())->customEvent(event);
-    } else {
+//    if (event->type() >= MediaStream::StartSurface) {
+//        QChildEvent *childEvent = static_cast<QChildEvent*>(event);
+//        static_cast<MediaStream*>(childEvent->child())->customEvent(event);
+//    } else {
         QObject::customEvent(event);
-    }
+//    }
 }
 
 void MFVideoRendererControl::supportedFormatsChanged()

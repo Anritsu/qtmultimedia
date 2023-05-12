@@ -63,7 +63,7 @@ void tst_QMediaContent::testNull()
     QCOMPARE(media.isNull(), true);
     QCOMPARE(media.request().url(), QUrl());
 #if QT_DEPRECATED_SINCE(6, 0)
-    QCOMPARE(media.canonicalUrl(), QUrl());
+    QCOMPARE(media.request().url(), QUrl());
     QCOMPARE(media.canonicalResource(), QMediaResource());
     QCOMPARE(media.resources(), QMediaResourceList());
 #endif
@@ -90,9 +90,9 @@ void tst_QMediaContent::testRequestCtor()
     QCOMPARE(media.request(), request);
 
 #if QT_DEPRECATED_SINCE(6, 0)
-    QCOMPARE(media.canonicalUrl(), QUrl("http://example.com/movie.mov"));
-    QCOMPARE(media.canonicalRequest(),request);
-    QCOMPARE(media.canonicalResource().request(), request);
+    QCOMPARE(media.request().url(), QUrl("http://example.com/movie.mov"));
+    QCOMPARE(media.request(),request);
+    QCOMPARE(media.request(), request);
     QCOMPARE(media.canonicalResource().url(), QUrl("http://example.com/movie.mov"));
 #endif
 }

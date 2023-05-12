@@ -40,8 +40,14 @@
 #ifndef EVRHELPERS_H
 #define EVRHELPERS_H
 
-#include "evrdefs.h"
+#include <d3d9.h>
 #include <qvideoframe.h>
+#include <dxva2api.h>
+#include <evr9.h>
+#include <evr.h>
+#include <mfidl.h>
+#include <mfapi.h>
+#include <mferror.h>
 
 QT_BEGIN_NAMESPACE
 
